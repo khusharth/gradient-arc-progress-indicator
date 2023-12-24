@@ -1,1 +1,1 @@
-export { default } from "./GradientArcProgressIndicator";
+export { default } from './GradientArcProgressIndicator';
