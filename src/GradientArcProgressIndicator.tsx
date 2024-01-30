@@ -25,7 +25,7 @@ type GradientArcProgressIndicatorProps = {
 const GradientArcProgressIndicator = (
   props: GradientArcProgressIndicatorProps,
 ) => {
-  const { currentProgress } = props;
+  const { currentProgress, minProgress, maxProgress } = props;
 
   return (
     <View style={styles.container}>
@@ -33,6 +33,16 @@ const GradientArcProgressIndicator = (
 
       <View style={styles.centerCircle}>
         <Text style={styles.progressText}>{currentProgress ?? '—'}</Text>
+      </View>
+
+      {/** Min/Max Progress display */}
+      <View style={styles.minMaxProgressContainer}>
+        <View style={styles.minProgressTextContainer}>
+          <Text>{minProgress}</Text>
+        </View>
+        <View style={styles.maxProgressTextContainer}>
+          <Text>{maxProgress}</Text>
+        </View>
       </View>
     </View>
   );
@@ -73,6 +83,19 @@ const styles = StyleSheet.create({
   progressText: {
     fontSize: 24,
     fontWeight: '500',
+  },
+  minMaxProgressContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  minProgressTextContainer: {
+    left: 28,
+  },
+  maxProgressTextContainer: {
+    right: 15,
   },
 });
 
