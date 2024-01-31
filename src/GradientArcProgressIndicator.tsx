@@ -1,13 +1,19 @@
 // Libraries
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Svg from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
 // Utils and Constants
+import { getArcData } from './utils';
 import {
   OUTER_CIRCLE_WIDTH,
+  OUTER_CIRCLE_BORDER_WIDTH,
+  OUTER_CIRCLE_BORDER_SPACE_DIA,
   INNER_CIRCLE_WIDTH,
   ColorConfig,
+  ARC_STROKE_WIDTH,
+  ARC_START_ANGLE,
+  ARC_END_ANGLE,
 } from './constants';
 
 type GradientArcProgressIndicatorProps = {
@@ -26,10 +32,24 @@ const GradientArcProgressIndicator = (
   props: GradientArcProgressIndicatorProps,
 ) => {
   const { currentProgress, minProgress, maxProgress } = props;
+  const { pathsData } = getArcData({
+    outerCircleWidth: OUTER_CIRCLE_WIDTH,
+    arcStrokeWidth: ARC_STROKE_WIDTH,
+    arcStartAngleInDeg: ARC_START_ANGLE,
+    arcEndAngleInDeg: ARC_END_ANGLE,
+  });
 
   return (
     <View style={styles.container}>
-      <Svg style={styles.svgContainer}></Svg>
+      <Svg style={styles.svgContainer}>
+        {/** background arc shown below the animated gradient arc */}
+        <Path
+          stroke={ColorConfig.gradientStart}
+          fill="none"
+          d={pathsData.bgArcPath}
+          strokeWidth={ARC_STROKE_WIDTH}
+        />
+      </Svg>
 
       <View style={styles.centerCircle}>
         <Text style={styles.progressText}>{currentProgress ?? '—'}</Text>
@@ -50,17 +70,17 @@ const GradientArcProgressIndicator = (
 
 const styles = StyleSheet.create({
   container: {
-    height: OUTER_CIRCLE_WIDTH,
-    width: OUTER_CIRCLE_WIDTH,
+    height: OUTER_CIRCLE_WIDTH + OUTER_CIRCLE_BORDER_SPACE_DIA,
+    width: OUTER_CIRCLE_WIDTH + OUTER_CIRCLE_BORDER_SPACE_DIA,
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 0.5,
+    borderWidth: OUTER_CIRCLE_BORDER_WIDTH,
     borderRadius: 100,
     borderColor: ColorConfig.borderColor,
   },
   svgContainer: {
-    width: '101%',
-    height: '101%',
+    width: '100%',
+    height: '100%',
   },
   centerCircle: {
     position: 'absolute',
