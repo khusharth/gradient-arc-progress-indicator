@@ -1,6 +1,6 @@
 // Libraries
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import Svg, {
   Path,
   Defs,
@@ -30,6 +30,8 @@ import {
   ARC_END_ANGLE,
   ColorConfig,
 } from './constants';
+
+const AnimatedPath = Animated.createAnimatedComponent(Path);
 
 type GradientArcProgressIndicatorProps = {
   /** current progress of the user */
@@ -66,6 +68,22 @@ const GradientArcProgressIndicator = (
     borderArcStrokeWidth: BORDER_ARC_STROKE_WIDTH,
   });
 
+  const progressAnimationRef = useRef(new Animated.Value(0));
+
+  useEffect(() => {
+    Animated.timing(progressAnimationRef.current, {
+      easing: Easing.inOut(Easing.cubic),
+      duration: ANIMATION_DURATION,
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  const animatedStrokeDashoffset = progressAnimationRef.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: [arcCircumference, arcStokeDashOffset],
+  });
+
   return (
     <View style={styles.container}>
       <Svg style={styles.svgContainer}>
@@ -91,12 +109,12 @@ const GradientArcProgressIndicator = (
           </LinearGradient>
         </Defs>
 
-        <Path
+        <AnimatedPath
           stroke="url(#grad)"
           fill="none"
           d={pathsData.indicatorArcPath}
           strokeWidth={ARC_STROKE_WIDTH}
-          strokeDashoffset={arcStokeDashOffset}
+          strokeDashoffset={animatedStrokeDashoffset}
           strokeDasharray={arcCircumference}
         />
 
