@@ -3,6 +3,7 @@ export const ColorConfig = {
   borderWhite: '#ffffff',
   centerCircleBg: '#f9fafc',
   gradientStart: '#ecfeff',
-  gradientEnd: '"#06b6d4',
+  gradientEnd: '#06b6d4',
   shadowColor: '#000000',
+  transparent: '#ffffff66',
 };

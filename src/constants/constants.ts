@@ -7,6 +7,7 @@ const ARC_STOKE_WIDTH_PERCENTAGE = 0.275;
 // distance b/w the outer circle and inner circle
 export const ARC_STROKE_WIDTH = OUTER_CIRCLE_WIDTH * ARC_STOKE_WIDTH_PERCENTAGE;
 export const INNER_CIRCLE_WIDTH = OUTER_CIRCLE_WIDTH - 2 * ARC_STROKE_WIDTH;
+export const BORDER_ARC_STROKE_WIDTH = 6;
 
 // Start and end arc angles in degree
 export const ARC_START_ANGLE = 234;

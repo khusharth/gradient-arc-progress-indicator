@@ -9,6 +9,7 @@ import {
   OUTER_CIRCLE_WIDTH,
   OUTER_CIRCLE_BORDER_WIDTH,
   OUTER_CIRCLE_BORDER_SPACE_DIA,
+  BORDER_ARC_STROKE_WIDTH,
   INNER_CIRCLE_WIDTH,
   ColorConfig,
   ARC_STROKE_WIDTH,
@@ -31,12 +32,13 @@ type GradientArcProgressIndicatorProps = {
 const GradientArcProgressIndicator = (
   props: GradientArcProgressIndicatorProps,
 ) => {
-  const { currentProgress, minProgress, maxProgress } = props;
+  const { currentProgress, minProgress = 0, maxProgress = 100 } = props;
   const { pathsData } = getArcData({
     outerCircleWidth: OUTER_CIRCLE_WIDTH,
     arcStrokeWidth: ARC_STROKE_WIDTH,
     arcStartAngleInDeg: ARC_START_ANGLE,
     arcEndAngleInDeg: ARC_END_ANGLE,
+    borderArcStrokeWidth: BORDER_ARC_STROKE_WIDTH,
   });
 
   return (
@@ -48,6 +50,14 @@ const GradientArcProgressIndicator = (
           fill="none"
           d={pathsData.bgArcPath}
           strokeWidth={ARC_STROKE_WIDTH}
+        />
+
+        {/** transparent border arc */}
+        <Path
+          stroke={ColorConfig.transparent}
+          fill="none"
+          d={pathsData.borderArcPath}
+          strokeWidth={BORDER_ARC_STROKE_WIDTH}
         />
       </Svg>
 
