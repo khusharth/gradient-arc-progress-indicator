@@ -72,7 +72,7 @@ const GradientArcProgressIndicator = (
         <Path
           stroke={ColorConfig.gradientStart}
           fill="none"
-          d={pathsData.bgArcPath}
+          d={pathsData.indicatorArcPath}
           strokeWidth={ARC_STROKE_WIDTH}
         />
 
@@ -93,7 +93,7 @@ const GradientArcProgressIndicator = (
         <Path
           stroke="url(#grad)"
           fill="none"
-          d={pathsData.gradientArcPath}
+          d={pathsData.indicatorArcPath}
           strokeWidth={ARC_STROKE_WIDTH}
           strokeDashoffset={arcStokeDashOffset}
           strokeDasharray={arcCircumference}

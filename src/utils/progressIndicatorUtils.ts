@@ -85,8 +85,7 @@ const getArcData = (params: GetArcData) => {
   /** Create arc using the coordinated calculated above */
   const largeArcFlag = 1; // create the major arc
   const sweepFlag = 1; // drawn arc counterclockwise (positive direction).
-  const bgArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
-  const gradientArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
+  const indicatorArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
   const borderArcPath = `M ${borderArcStartX} ${borderArcStartY} A ${borderArcRadius} ${borderArcRadius} 0 ${largeArcFlag} ${sweepFlag} ${borderArcEndX} ${borderArcEndY}`;
   const dividerCoverArcPath = `M ${arcEndX} ${arcEndY} A ${arcRadius} ${arcRadius} 0 0 ${sweepFlag} ${arcStartX} ${arcStartY}`;
 
@@ -117,9 +116,8 @@ const getArcData = (params: GetArcData) => {
       rotationAngle: needleRotationAngle,
     },
     pathsData: {
-      bgArcPath,
       borderArcPath,
-      gradientArcPath,
+      indicatorArcPath,
       dividerCoverArcPath,
     },
     linerGradientData: {
