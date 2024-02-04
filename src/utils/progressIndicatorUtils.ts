@@ -35,7 +35,7 @@ const getArcData = (params: GetArcData) => {
   const arcStartAngle = degreesToRadians(arcStartAngleInDeg);
   const arcEndAngle = degreesToRadians(arcEndAngleInDeg);
 
-  const arcAngleInDeg = 360 - (arcEndAngleInDeg - arcStartAngleInDeg); // TODO: changed
+  const arcAngleInDeg = 360 - (arcEndAngleInDeg - arcStartAngleInDeg);
   const arcAngle = degreesToRadians(arcAngleInDeg);
 
   const arcCurrentProgress = currentProgress - minProgress;
@@ -94,7 +94,27 @@ const getArcData = (params: GetArcData) => {
   const gradientY1 = currentProgress <= midProgressValue ? '100%' : '0';
   const gradientX2 = currentProgress <= midProgressValue ? '0' : '100%';
 
+  // Needle related data
+  // from arcStartAngleInDeg, how much angle has been completed for rotating the needle
+  const needleRotationAngle = arcAngleInDeg * progressCompletedRatio;
+
+  // needle starting position for needle end points, origin is 0 as the svg group needle
+  // is in is already at circleCenterX, circleCenterY
+  const [needleInitialEndX, needleInitialEndY] = getArcCoordinates({
+    angle: arcStartAngle,
+    radius: arcRadius,
+    // set to 0 as we will be handling this in the svg group
+    // (moving both the line and circle to the center)
+    circleCenterX: 0,
+    circleCenterY: 0,
+  });
+
   return {
+    needleData: {
+      initialX2: needleInitialEndX,
+      initialY2: needleInitialEndY,
+      rotationAngle: needleRotationAngle,
+    },
     pathsData: {
       bgArcPath,
       borderArcPath,
@@ -106,6 +126,8 @@ const getArcData = (params: GetArcData) => {
     },
     arcCircumference,
     arcStokeDashOffset,
+    circleCenterX,
+    circleCenterY,
   };
 };
 

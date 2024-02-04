@@ -12,3 +12,7 @@ export const BORDER_ARC_STROKE_WIDTH = 6;
 // Start and end arc angles in degree
 export const ARC_START_ANGLE = 234;
 export const ARC_END_ANGLE = 306;
+
+// needle related
+export const NEEDLE_STROKE_WIDTH = 5;
+export const NEEDLE_TOP_CIRCLE_WIDTH = 2.4;
