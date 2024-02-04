@@ -32,6 +32,7 @@ import {
 } from './constants';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
+const AnimatedG = Animated.createAnimatedComponent(G);
 
 type GradientArcProgressIndicatorProps = {
   /** current progress of the user */
@@ -82,6 +83,11 @@ const GradientArcProgressIndicator = (
   const animatedStrokeDashoffset = progressAnimationRef.current.interpolate({
     inputRange: [0, 1],
     outputRange: [arcCircumference, arcStokeDashOffset],
+  });
+
+  const animatedNeedleRotationAngle = progressAnimationRef.current.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', `${needleData.rotationAngle}deg`],
   });
 
   return (
@@ -141,10 +147,12 @@ const GradientArcProgressIndicator = (
         />
 
         {/* Needle */}
-        <G
+        <AnimatedG
           x={circleCenterX}
           y={circleCenterY}
-          rotation={needleData.rotationAngle}
+          style={{
+            transform: [{ rotateZ: animatedNeedleRotationAngle }],
+          }}
         >
           <Line
             x1={0}
@@ -160,7 +168,7 @@ const GradientArcProgressIndicator = (
             cx={needleData.initialX2}
             cy={needleData.initialY2}
           />
-        </G>
+        </AnimatedG>
       </Svg>
 
       <View style={styles.centerCircle}>
