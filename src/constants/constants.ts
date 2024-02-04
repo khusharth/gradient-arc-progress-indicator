@@ -16,3 +16,13 @@ export const ARC_END_ANGLE = 306;
 // needle related
 export const NEEDLE_STROKE_WIDTH = 5;
 export const NEEDLE_TOP_CIRCLE_WIDTH = 2.4;
+
+// divider related
+export const DividerConfig = {
+  COUNT: 20,
+  // divider length in terms of circle radius
+  DIVIDER_TO_RADIUS_RATIO: 0.5,
+  WIDTH: 2,
+  TOP_CIRCLE_RADIUS: 0.7,
+};
+export const ANGLE_BETWEEN_TWO_DIVIDERS = (2 * Math.PI) / DividerConfig.COUNT;

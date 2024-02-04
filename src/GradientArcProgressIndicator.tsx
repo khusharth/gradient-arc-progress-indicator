@@ -11,6 +11,9 @@ import Svg, {
   Circle,
 } from 'react-native-svg';
 
+// Components
+import { ProgressDividers } from './components';
+
 // Utils and Constants
 import { getArcData } from './utils';
 import {
@@ -104,6 +107,13 @@ const GradientArcProgressIndicator = (
           strokeWidth={BORDER_ARC_STROKE_WIDTH}
         />
 
+        <ProgressDividers
+          circleCenterX={circleCenterX}
+          circleCenterY={circleCenterY}
+          circleWidth={OUTER_CIRCLE_WIDTH}
+        />
+
+        {/* Needle */}
         <G
           x={circleCenterX}
           y={circleCenterY}
@@ -164,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: ColorConfig.centerCircleBg,
     borderWidth: 5,
-    borderColor: ColorConfig.borderWhite,
+    borderColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
 
