@@ -26,3 +26,6 @@ export const DividerConfig = {
   TOP_CIRCLE_RADIUS: 0.7,
 };
 export const ANGLE_BETWEEN_TWO_DIVIDERS = (2 * Math.PI) / DividerConfig.COUNT;
+
+// Animation related
+export const ANIMATION_DURATION = 2000;

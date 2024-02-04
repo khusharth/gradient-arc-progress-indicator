@@ -12,7 +12,7 @@ import Svg, {
 } from 'react-native-svg';
 
 // Components
-import { ProgressDividers } from './components';
+import { CountUpAnimatorText, ProgressDividers } from './components';
 
 // Utils and Constants
 import { getArcData } from './utils';
@@ -24,10 +24,11 @@ import {
   NEEDLE_TOP_CIRCLE_WIDTH,
   NEEDLE_STROKE_WIDTH,
   INNER_CIRCLE_WIDTH,
-  ColorConfig,
+  ANIMATION_DURATION,
   ARC_STROKE_WIDTH,
   ARC_START_ANGLE,
   ARC_END_ANGLE,
+  ColorConfig,
 } from './constants';
 
 type GradientArcProgressIndicatorProps = {
@@ -145,7 +146,15 @@ const GradientArcProgressIndicator = (
       </Svg>
 
       <View style={styles.centerCircle}>
-        <Text style={styles.progressText}>{currentProgress ?? '—'}</Text>
+        {typeof currentProgress !== 'number' ? (
+          <Text style={styles.progressText}>—</Text>
+        ) : (
+          <CountUpAnimatorText
+            duration={ANIMATION_DURATION}
+            countFrom={minProgress}
+            countTo={currentProgress}
+          />
+        )}
       </View>
 
       {/** Min/Max Progress display */}

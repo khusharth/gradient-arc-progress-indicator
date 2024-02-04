@@ -1,3 +1,4 @@
+import CountUpAnimatorText from './CountUpAnimatorText';
 import ProgressDividers from './ProgressDividers';
 
-export { ProgressDividers };
+export { CountUpAnimatorText, ProgressDividers };
