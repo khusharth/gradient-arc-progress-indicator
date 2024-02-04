@@ -89,11 +89,20 @@ const getArcData = (params: GetArcData) => {
   const gradientArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
   const borderArcPath = `M ${borderArcStartX} ${borderArcStartY} A ${borderArcRadius} ${borderArcRadius} 0 ${largeArcFlag} ${sweepFlag} ${borderArcEndX} ${borderArcEndY}`;
 
+  // Gradient X1 and X2 values to make it more prominent
+  const midProgressValue = (maxProgress - minProgress) / 2 + minProgress;
+  const gradientY1 = currentProgress <= midProgressValue ? '100%' : '0';
+  const gradientX2 = currentProgress <= midProgressValue ? '0' : '100%';
+
   return {
     pathsData: {
       bgArcPath,
       borderArcPath,
       gradientArcPath,
+    },
+    linerGradientData: {
+      y1: gradientY1,
+      x2: gradientX2,
     },
     arcCircumference,
     arcStokeDashOffset,

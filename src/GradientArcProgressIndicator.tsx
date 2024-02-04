@@ -33,16 +33,17 @@ const GradientArcProgressIndicator = (
   props: GradientArcProgressIndicatorProps,
 ) => {
   const { currentProgress, minProgress = 0, maxProgress = 100 } = props;
-  const { pathsData, arcCircumference, arcStokeDashOffset } = getArcData({
-    minProgress,
-    maxProgress,
-    currentProgress,
-    outerCircleWidth: OUTER_CIRCLE_WIDTH,
-    arcStrokeWidth: ARC_STROKE_WIDTH,
-    arcStartAngleInDeg: ARC_START_ANGLE,
-    arcEndAngleInDeg: ARC_END_ANGLE,
-    borderArcStrokeWidth: BORDER_ARC_STROKE_WIDTH,
-  });
+  const { pathsData, linerGradientData, arcCircumference, arcStokeDashOffset } =
+    getArcData({
+      minProgress,
+      maxProgress,
+      currentProgress,
+      outerCircleWidth: OUTER_CIRCLE_WIDTH,
+      arcStrokeWidth: ARC_STROKE_WIDTH,
+      arcStartAngleInDeg: ARC_START_ANGLE,
+      arcEndAngleInDeg: ARC_END_ANGLE,
+      borderArcStrokeWidth: BORDER_ARC_STROKE_WIDTH,
+    });
 
   return (
     <View style={styles.container}>
@@ -57,7 +58,13 @@ const GradientArcProgressIndicator = (
 
         {/** gradient arc */}
         <Defs>
-          <LinearGradient id="grad" x1="0" y1="0" x2="100%" y2="0">
+          <LinearGradient
+            id="grad"
+            x1="0"
+            y1={linerGradientData.y1}
+            x2={linerGradientData.x2}
+            y2="0"
+          >
             <Stop offset="0%" stopColor={ColorConfig.gradientStart} />
             <Stop offset="100%" stopColor={ColorConfig.gradientEnd} />
           </LinearGradient>
