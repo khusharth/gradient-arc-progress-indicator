@@ -1,7 +1,7 @@
 // Libraries
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import Svg, { Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 
 // Utils and Constants
 import { getArcData } from './utils';
@@ -33,7 +33,10 @@ const GradientArcProgressIndicator = (
   props: GradientArcProgressIndicatorProps,
 ) => {
   const { currentProgress, minProgress = 0, maxProgress = 100 } = props;
-  const { pathsData } = getArcData({
+  const { pathsData, arcCircumference, arcStokeDashOffset } = getArcData({
+    minProgress,
+    maxProgress,
+    currentProgress,
     outerCircleWidth: OUTER_CIRCLE_WIDTH,
     arcStrokeWidth: ARC_STROKE_WIDTH,
     arcStartAngleInDeg: ARC_START_ANGLE,
@@ -50,6 +53,23 @@ const GradientArcProgressIndicator = (
           fill="none"
           d={pathsData.bgArcPath}
           strokeWidth={ARC_STROKE_WIDTH}
+        />
+
+        {/** gradient arc */}
+        <Defs>
+          <LinearGradient id="grad" x1="0" y1="0" x2="100%" y2="0">
+            <Stop offset="0%" stopColor={ColorConfig.gradientStart} />
+            <Stop offset="100%" stopColor={ColorConfig.gradientEnd} />
+          </LinearGradient>
+        </Defs>
+
+        <Path
+          stroke="url(#grad)"
+          fill="none"
+          d={pathsData.gradientArcPath}
+          strokeWidth={ARC_STROKE_WIDTH}
+          strokeDashoffset={arcStokeDashOffset}
+          strokeDasharray={arcCircumference}
         />
 
         {/** transparent border arc */}

@@ -1,6 +1,9 @@
 import { getArcCoordinates, degreesToRadians } from './commonUtils';
 
 type GetArcData = {
+  currentProgress?: number;
+  maxProgress: number;
+  minProgress: number;
   outerCircleWidth: number;
   arcStrokeWidth: number;
   arcStartAngleInDeg: number;
@@ -10,6 +13,9 @@ type GetArcData = {
 
 const getArcData = (params: GetArcData) => {
   const {
+    currentProgress = 0,
+    maxProgress,
+    minProgress,
     arcStrokeWidth,
     outerCircleWidth,
     arcStartAngleInDeg,
@@ -28,6 +34,18 @@ const getArcData = (params: GetArcData) => {
   // convert them to radians for easier calculation
   const arcStartAngle = degreesToRadians(arcStartAngleInDeg);
   const arcEndAngle = degreesToRadians(arcEndAngleInDeg);
+
+  const arcAngleInDeg = 360 - (arcEndAngleInDeg - arcStartAngleInDeg); // TODO: changed
+  const arcAngle = degreesToRadians(arcAngleInDeg);
+
+  const arcCurrentProgress = currentProgress - minProgress;
+  const arcMaxProgress = maxProgress - minProgress;
+  const progressCompletedRatio = arcCurrentProgress / arcMaxProgress;
+  const remainingProgressRatio = 1 - progressCompletedRatio;
+  // length of an arc circle
+  const arcCircumference = arcRadius * arcAngle;
+  // using remainingScoreRatio to fill arc from right to left
+  const arcStokeDashOffset = arcCircumference * remainingProgressRatio;
 
   // get start coordinates for the starting point of the arc
   const [arcStartX, arcStartY] = getArcCoordinates({
@@ -68,14 +86,17 @@ const getArcData = (params: GetArcData) => {
   const largeArcFlag = 1; // create the major arc
   const sweepFlag = 1; // drawn arc counterclockwise (positive direction).
   const bgArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
-
+  const gradientArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
   const borderArcPath = `M ${borderArcStartX} ${borderArcStartY} A ${borderArcRadius} ${borderArcRadius} 0 ${largeArcFlag} ${sweepFlag} ${borderArcEndX} ${borderArcEndY}`;
 
   return {
     pathsData: {
       bgArcPath,
       borderArcPath,
+      gradientArcPath,
     },
+    arcCircumference,
+    arcStokeDashOffset,
   };
 };
 
