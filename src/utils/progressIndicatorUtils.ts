@@ -88,6 +88,7 @@ const getArcData = (params: GetArcData) => {
   const bgArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
   const gradientArcPath = `M ${arcStartX} ${arcStartY} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEndX} ${arcEndY}`;
   const borderArcPath = `M ${borderArcStartX} ${borderArcStartY} A ${borderArcRadius} ${borderArcRadius} 0 ${largeArcFlag} ${sweepFlag} ${borderArcEndX} ${borderArcEndY}`;
+  const dividerCoverArcPath = `M ${arcEndX} ${arcEndY} A ${arcRadius} ${arcRadius} 0 0 ${sweepFlag} ${arcStartX} ${arcStartY}`;
 
   // Gradient X1 and X2 values to make it more prominent
   const midProgressValue = (maxProgress - minProgress) / 2 + minProgress;
@@ -119,6 +120,7 @@ const getArcData = (params: GetArcData) => {
       bgArcPath,
       borderArcPath,
       gradientArcPath,
+      dividerCoverArcPath,
     },
     linerGradientData: {
       y1: gradientY1,

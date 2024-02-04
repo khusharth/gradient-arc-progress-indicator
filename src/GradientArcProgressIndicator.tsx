@@ -113,6 +113,14 @@ const GradientArcProgressIndicator = (
           circleWidth={OUTER_CIRCLE_WIDTH}
         />
 
+        {/** arc to cover extra dividers */}
+        <Path
+          stroke="white"
+          fill="none"
+          d={pathsData.dividerCoverArcPath}
+          strokeWidth={ARC_STROKE_WIDTH}
+        />
+
         {/* Needle */}
         <G
           x={circleCenterX}

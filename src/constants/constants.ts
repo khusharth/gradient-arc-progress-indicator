@@ -10,8 +10,8 @@ export const INNER_CIRCLE_WIDTH = OUTER_CIRCLE_WIDTH - 2 * ARC_STROKE_WIDTH;
 export const BORDER_ARC_STROKE_WIDTH = 6;
 
 // Start and end arc angles in degree
-export const ARC_START_ANGLE = 234;
-export const ARC_END_ANGLE = 306;
+export const ARC_START_ANGLE = 232;
+export const ARC_END_ANGLE = 308;
 
 // needle related
 export const NEEDLE_STROKE_WIDTH = 5;
