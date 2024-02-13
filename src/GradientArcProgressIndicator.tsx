@@ -15,7 +15,7 @@ import Svg, {
 import { CountUpAnimatorText, ProgressDividers } from './components';
 
 // Utils and Constants
-import { getArcData } from './utils';
+import { getArcData, checkIsCurrentProgressValid } from './utils';
 import {
   OUTER_CIRCLE_WIDTH,
   OUTER_CIRCLE_BORDER_WIDTH,
@@ -50,6 +50,12 @@ const GradientArcProgressIndicator = (
   props: GradientArcProgressIndicatorProps,
 ) => {
   const { currentProgress, minProgress = 0, maxProgress = 100 } = props;
+  const isCurrentProgressValid = checkIsCurrentProgressValid({
+    minProgress,
+    maxProgress,
+    currentProgress,
+  });
+
   const {
     pathsData,
     needleData,
@@ -61,7 +67,7 @@ const GradientArcProgressIndicator = (
   } = getArcData({
     minProgress,
     maxProgress,
-    currentProgress,
+    currentProgress: isCurrentProgressValid ? currentProgress : 0,
     outerCircleWidth: OUTER_CIRCLE_WIDTH,
     arcStrokeWidth: ARC_STROKE_WIDTH,
     arcStartAngleInDeg: ARC_START_ANGLE,
@@ -172,14 +178,14 @@ const GradientArcProgressIndicator = (
       </Svg>
 
       <View style={styles.centerCircle}>
-        {typeof currentProgress !== 'number' ? (
-          <Text style={styles.progressText}>—</Text>
-        ) : (
+        {isCurrentProgressValid ? (
           <CountUpAnimatorText
             duration={ANIMATION_DURATION}
             countFrom={minProgress}
-            countTo={currentProgress}
+            countTo={currentProgress ?? minProgress}
           />
+        ) : (
+          <Text style={styles.progressText}>—</Text>
         )}
       </View>
 

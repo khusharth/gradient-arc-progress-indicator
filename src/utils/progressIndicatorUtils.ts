@@ -1,5 +1,28 @@
 import { getArcCoordinates, degreesToRadians } from './commonUtils';
 
+type CheckIsCurrentProgressValidParams = {
+  currentProgress?: number;
+  maxProgress: number;
+  minProgress: number;
+};
+
+const checkIsCurrentProgressValid = ({
+  currentProgress,
+  maxProgress,
+  minProgress,
+}: CheckIsCurrentProgressValidParams) => {
+  if (typeof currentProgress !== 'number') {
+    return false;
+  }
+
+  // if current progress is outside the range of min to max progress
+  if (currentProgress < minProgress || currentProgress > maxProgress) {
+    return false;
+  }
+
+  return true;
+};
+
 type GetArcData = {
   currentProgress?: number;
   maxProgress: number;
@@ -131,4 +154,4 @@ const getArcData = (params: GetArcData) => {
   };
 };
 
-export { getArcData };
+export { getArcData, checkIsCurrentProgressValid };
