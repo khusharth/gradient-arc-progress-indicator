@@ -4,5 +4,5 @@
     "baseUrl": "src",
     "allowJs": false
   },
-  "extends": "expo/tsconfig.base",
+  "extends": "expo/tsconfig.base"
 }
